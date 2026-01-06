@@ -1,6 +1,6 @@
 <!--  README badges  -->
 <p>
-    <a href="#platform-support"><img src="https://img.shields.io/badge/macOS-333333?logo=apple&logoColor=F0F0F0" align="right"  height="20"></a>
+    <a href="#platform-support"><img src="https://img.shields.io/badge/macOS-333333?logo=apple&logoColor=F0F0F0" align="right"></a>
     <a href="#installation"><img src="https://img.shields.io/badge/Go-00ADD8?logo=go&logoColor=white&labelColor=2D3748&color=2D3748" align="right" height="20" hspace="5"></a>
     <a href="https://github.com/julian-bruyers/touchid-go/releases"><img src="https://img.shields.io/github/v/release/julian-bruyers/touchid-go?label=Latest&labelColor=2D3748&color=003087" height="20"></a>
     <a href="https://github.com/julian-bruyers/touchid-go/blob/main/LICENSE"><img src="https://img.shields.io/github/license/julian-bruyers/touchid-go?&label=License&logo=opensourceinitiative&logoColor=ffffff&labelColor=2D3748&color=2D3748" height="20" hspace="5"></a>
