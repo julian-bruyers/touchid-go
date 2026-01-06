@@ -1,0 +1,43 @@
+//go:build darwin
+
+#include <Foundation/Foundation.h>
+#include <LocalAuthentication/LocalAuthentication.h>
+
+#define AUTH_SUCCESS             1
+#define AUTH_FAILED_OR_CANCELLED 0
+#define AUTH_NOT_AVAILABLE      -1
+#define AUTH_ERROR_INTERNAL     -2
+
+int AuthenticateUser(char* prompt) {
+    LAContext *context = [[LAContext alloc] init];
+    NSError *authError = nil;
+    NSString *msg = [NSString stringWithUTF8String:prompt];
+    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+    __block int result = AUTH_ERROR_INTERNAL;
+
+    if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&authError]) {
+        [context evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics
+                localizedReason:msg
+                          reply:^(BOOL success, NSError *error) {
+
+            if (success) {
+                result = AUTH_SUCCESS;
+            } else {
+                if (error.code == LAErrorUserCancel || error.code == LAErrorSystemCancel) {
+                    result = AUTH_FAILED_OR_CANCELLED;
+                } else if (error.code == LAErrorBiometryNotAvailable || error.code == LAErrorBiometryNotEnrolled) {
+                    result = AUTH_NOT_AVAILABLE;
+                } else {
+                    result = AUTH_ERROR_INTERNAL;
+                }
+            }
+
+            dispatch_semaphore_signal(sema);
+        }];
+    } else {
+        return AUTH_NOT_AVAILABLE;
+    }
+
+    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+    return result;
+}
