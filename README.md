@@ -95,7 +95,7 @@ _Returns:_
 - macOS 10.12.1 (Sierra)
 - Go 1.25 or later (earlier versions likely work aswell)
 - AMD64 or ARM64 processor
-- MacBook with fingerprint sensor or Touch ID compatible keyboard
+- MacBook with Touch ID sensor or Touch ID compatible keyboard
 
 ## Development and Building
 1. **Go 1.25+**
