@@ -95,7 +95,7 @@ func main() {
 > - None
 > 
 > _Return:_
-> -`bool:` `true` if Touch ID is available, `false` otherwise
+> - `bool:` `true` if Touch ID is available, `false` otherwise
 
 ---
 
