@@ -14,6 +14,10 @@ import (
 	"unsafe"
 )
 
+func Available() bool {
+	return C.IsAvailable() == 1
+}
+
 func Authenticate(promptMsg string) (bool, error) {
 	cPrompt := C.CString(promptMsg)
 	defer C.free(unsafe.Pointer(cPrompt))

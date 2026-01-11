@@ -8,6 +8,16 @@
 #define AUTH_NOT_AVAILABLE      -1
 #define AUTH_ERROR_INTERNAL     -2
 
+int IsAvailable() {
+    LAContext *context = [[LAContext alloc] init];
+    NSError *authError = nil;
+
+    if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&authError]) {
+        return 1;
+    }
+    return 0;
+}
+
 int AuthenticateUser(char* prompt) {
     LAContext *context = [[LAContext alloc] init];
     NSError *authError = nil;
