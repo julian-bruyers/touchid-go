@@ -21,12 +21,37 @@ A **lightweight**, **zero external dependencies** and **simple to use** Go libra
 - No external dependencies
 - Extremely easy to use API
 
+---
+
+> [!IMPORTANT]
+> **App Store & Info.plist Requirements**
+>
+> If you plan to distribute your application via the **Mac App Store** or use a **hardened runtime**, you **must** add the `NSFaceIDUsageDescription` key to your application's `Info.plist` file.
+>
+> Even if you only intend to use Touch ID, Apple requires this key because the library links against the `LocalAuthentication` framework, which supports both Face ID and Touch ID.
+>
+> **Not including this key might result in App Store rejection or cause your application to crash immediately when `Authenticate()` is called.**
+>
+> **Example `Info.plist` entry:**
+> ```xml
+> <key>NSFaceIDUsageDescription</key>
+> <string>This app uses Touch ID / Face ID to verify your identity.</string>
+> ```
+
+---
+
 ## Installation
 Add touchid-go to your Go project:
 
 ```bash
 go get github.com/julian-bruyers/touchid-go@latest
 ```
+
+> [!NOTE]
+> **C Compiler Required**
+> 
+> This library relies on CGo, so you must have the macOS development tools installed to build your project.
+> Simply run `xcode-select --install` in your terminal to install them.
 
 ## Usage Example
 ```go
@@ -122,6 +147,7 @@ func main() {
 ## System Requirements
 - macOS 10.12.1 (Sierra)
 - Go 1.25 or later (earlier versions likely work aswell)
+- Apple C compiler (standard with `xcode-select --install`)
 - AMD64 or ARM64 processor
 - MacBook with Touch ID sensor or Touch ID compatible keyboard
 
