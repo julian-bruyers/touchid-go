@@ -38,6 +38,12 @@ import (
 )
 
 func main() {
+	// Check if Touch ID is available
+	if !touchid.Available() {
+		log.Fatalln("Touch ID is unavailable")
+	}
+	
+	// Authenticate the user
     if isAuthenticated, _ := touchid.Authenticate("Verify your identity for touchid-go test"); isAuthenticated {
         fmt.Println("Authentication successful!")
     } else {
@@ -57,8 +63,15 @@ import (
 )
 
 func main() {
+	// Check if Touch ID is available
+	if !touchid.Available() {
+		log.Fatalln("Touch ID is unavailable")
+	}
+	
+	// Authenticate the user
 	isAuthenticated, err := touchid.Authenticate("Verify your identity for touchid-go test")
 
+	// Handle the auth error
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -72,23 +85,36 @@ func main() {
 ```
 
 ## API / Usage
-**touchid.Authenticate(promptMsg string) (bool, error)**
-Prompts the user to authenticate using Windows Hello.
+> [!TIP]
+> **touchid.Avialable() (bool)**
+> Checks if Touch ID is available on the current system.
+> 
+> _Parameters:_
+> - None
+> 
+> _Return:_
+> -`bool:` `true` if Touch ID is available, `false` otherwise
 
-_Parameters:_
-- `promptMsg`: The message displayed to the user during authentication
+---
 
-_Returns:_
-- `bool`: `true` if authentication was successful, `false` otherwise
-- `error`: An error if something went wrong, `nil` on success
-
-| Error | Description |
-|-------|-------------|
-| `ErrOsNotSupported` | Called on non-macOS systems |
-| `ErrArchNotSupported` | Unsupported CPU architecture (only AMD64 and ARM64 supported) |
-| `ErrNotAvailable` | Windows Hello not configured or available on the system |
-| `ErrUserCanceled` | User canceled the authentication prompt |
-| `ErrInternal` | Internal macOS API error |
+> [!TIP]
+> **touchid.Authenticate(promptMsg string) (bool, error)**
+> Prompts the user to authenticate using Touch ID.
+> 
+> _Parameters:_
+> - `promptMsg`: The message displayed to the user during authentication
+> 
+> _Returns:_
+> - `bool`: `true` if authentication was successful, `false` otherwise
+> - `error`: An error if something went wrong, `nil` on success
+>
+> | Error | Description |
+> |-------|-------------|
+> | `ErrOsNotSupported` | Called on non-macOS systems |
+> | `ErrArchNotSupported` | Unsupported CPU architecture (only AMD64 and ARM64 supported) |
+> | `ErrNotAvailable` | Touch ID not configured or available on the system |
+> | `ErrUserCanceled` | User canceled the authentication prompt |
+> | `ErrInternal` | Internal macOS API error |
 
 
 ## System Requirements
