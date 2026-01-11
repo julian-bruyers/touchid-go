@@ -10,8 +10,11 @@ import (
 func main() {
 	fmt.Println("Touch ID Authentication Test")
 
-	isAuthenticated, err := touchid.Authenticate("Verify your identity for touchid-go test")
+	if !touchid.Available() {
+		log.Fatal("Touch ID is not available on this system")
+	}
 
+	isAuthenticated, err := touchid.Authenticate("Verify your identity for touchid-go test")
 	if err != nil {
 		log.Fatal(err)
 	}
