@@ -4,7 +4,7 @@
     <a href="#installation"><img src="https://img.shields.io/badge/Go-00ADD8?logo=go&logoColor=white&labelColor=2D3748&color=2D3748" align="right" height="20" hspace="5"></a>
     <a href="https://github.com/julian-bruyers/touchid-go/releases"><img src="https://img.shields.io/github/v/release/julian-bruyers/touchid-go?label=Latest&labelColor=2D3748&color=003087" height="20"></a>
     <a href="https://github.com/julian-bruyers/touchid-go/blob/main/LICENSE"><img src="https://img.shields.io/github/license/julian-bruyers/touchid-go?&label=License&logo=opensourceinitiative&logoColor=ffffff&labelColor=2D3748&color=2D3748" height="20" hspace="5"></a>
-    <a href="https://goreportcard.com/badge/github.com/julian-bruyers/touchid-go"><img src="https://goreportcard.com/badge/github.com/julian-bruyers/touchid-go" height="20"></a>
+    <a href="https://goreportcard.com/badge/github.com/julian-bruyers/touchid-go"><img src="https://img.shields.io/badge/go%20report-A+-brightgreen.svg?style=flat" height="20"></a>
 </p>
 
 # touchid-go: macOS Touch ID authentication for Go
