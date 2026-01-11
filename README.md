@@ -34,6 +34,7 @@ package main
 
 import (
     "fmt"
+
     "github.com/julian-bruyers/touchid-go"
 )
 
@@ -59,6 +60,7 @@ package main
 import (
     "fmt"
     "log"
+
     "github.com/julian-bruyers/touchid-go"
 )
 
