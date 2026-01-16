@@ -8,8 +8,16 @@
 </p>
 
 # touchid-go: macOS Touch ID authentication for Go
-
 A **lightweight**, **zero external dependencies** and **simple to use** Go library providing Touch ID and Face ID biometric authentication (fingerprint, facial recognition) for macOS.
+
+---
+
+> [!NOTE]
+> **Breaking Changes in v2.0.0**
+>
+> The `Authenticate()` function signature has changed to support functional options.
+
+---
 
 ## Overview
 **touchid-go** bridges Go with the native macOS API by using standard CGo calls. This let's you use Touch ID or Face ID directly without any external dependencies or complex CGo calls, just one simple Go function.
@@ -54,51 +62,50 @@ go get github.com/julian-bruyers/touchid-go@latest
 > Simply run `xcode-select --install` in your terminal to install them.
 
 ## Usage Example
+
+### Minimal Example
 ```go
 package main
 
-import (
-    "fmt"
-
-    "github.com/julian-bruyers/touchid-go"
-)
+import "github.com/julian-bruyers/touchid-go"
 
 func main() {
-	// Check if Touch ID is available
-	if !touchid.Available() {
-		log.Fatalln("Touch ID is unavailable")
+	if touchid.Authenticate() {
+		fmt.println("Authentication successful!")
+	} else {
+		fmt.println("Authenticate failes!")
 	}
-	
-	// Authenticate the user
-    if isAuthenticated, _ := touchid.Authenticate("Verify your identity for touchid-go test"); isAuthenticated {
-        fmt.Println("Authentication successful!")
-    } else {
-        fmt.Println("Authentication failed!")
-    }
 }
-```
+````
 
-**With error handling:**
+### Full Capabilities Example
+
 ```go
 package main
 
 import (
+    "context"
     "fmt"
     "log"
+    "time"
 
     "github.com/julian-bruyers/touchid-go"
 )
 
 func main() {
-	// Check if Touch ID is available
 	if !touchid.Available() {
 		log.Fatalln("Touch ID is unavailable")
 	}
 	
-	// Authenticate the user
-	isAuthenticated, err := touchid.Authenticate("Verify your identity for touchid-go test")
+	ctx := context.Background()
 
-	// Handle the auth error
+	isAuthenticated, err := touchid.Authenticate(
+		touchid.WithMsg("Verify your identity"),
+		touchid.WithTimeout(10 * time.Second),
+		touchid.WithContext(ctx),
+		touchid.WithPassword(false),
+	)
+
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -113,7 +120,7 @@ func main() {
 
 ## API / Usage
 > [!TIP]
-> **touchid.Avialable() (bool)**
+> **touchid.Available() (bool)**
 > Checks if Touch ID is available on the current system.
 > 
 > _Parameters:_
@@ -125,11 +132,14 @@ func main() {
 ---
 
 > [!TIP]
-> **touchid.Authenticate(promptMsg string) (bool, error)**
+> **touchid.Authenticate(options ...Option) (bool, error)**
 > Prompts the user to authenticate using Touch ID.
 > 
-> _Parameters:_
-> - `promptMsg`: The message displayed to the user during authentication
+> _Options:_
+> - `WithMsg(msg string)`: Custom prompt message _(default: "Touch ID")_
+> - `WithTimeout(d time.Duration)`: Timeout for authentication _(default: No timeout)_
+> - `WithContext(ctx context.Context)`: Context for cancellation _(default: No context)_
+> - `WithPassword(allow bool)`: Allow password fallback _(default: true)_
 > 
 > _Returns:_
 > - `bool`: `true` if authentication was successful, `false` otherwise
