@@ -21,7 +21,16 @@ int IsAvailable() {
 int AuthenticateUser(char* prompt) {
     LAContext *context = [[LAContext alloc] init];
     NSError *authError = nil;
-    NSString *msg = [NSString stringWithUTF8String:prompt];
+
+    NSString *msg = nil;
+    if (prompt != NULL) {
+        msg = [NSString stringWithUTF8String:prompt];
+    }
+
+    if (msg == nil || [msg length] == 0) {
+        msg = @"Touch ID";
+    }
+
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     __block int result = AUTH_ERROR_INTERNAL;
 

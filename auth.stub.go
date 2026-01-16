@@ -2,10 +2,10 @@
 
 package touchid
 
-func Available() (bool) {
+func Available() bool {
 	return false
 }
 
-func Authenticate(promptMsg string) (bool, error) {
+func Authenticate(options ...authOptions) (bool, error) {
 	return false, ErrOsNotSupported
 }
