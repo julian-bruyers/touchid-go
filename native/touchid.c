@@ -21,7 +21,7 @@ int IsAvailable() {
         }
     }
     @catch (id exception) { // safety wildcard catch to prevent errors in the main program
-        return 1;
+        return 0;
     }
     return 0;
 }
