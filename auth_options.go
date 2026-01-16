@@ -6,9 +6,10 @@ import (
 )
 
 type authOptions struct {
-	message string
-	timeout time.Duration
-	context context.Context
+	message       string
+	timeout       time.Duration
+	context       context.Context
+	allowPassword bool
 }
 
 type authResult struct {
@@ -33,5 +34,11 @@ func WithContext(ctx context.Context) Option {
 func WithTimeout(drt time.Duration) Option {
 	return func(option *authOptions) {
 		option.timeout = drt
+	}
+}
+
+func WithPassword(allow bool) Option {
+	return func(option *authOptions) {
+		option.allowPassword = allow
 	}
 }

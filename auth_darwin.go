@@ -21,8 +21,9 @@ func Available() bool {
 
 func Authenticate(options ...Option) (bool, error) {
 	authOpts := &authOptions{
-		message: "",
-		context: context.Background(),
+		message:       "",
+		context:       context.Background(),
+		allowPassword: true,
 	}
 
 	for _, current := range options {
@@ -38,7 +39,7 @@ func Authenticate(options ...Option) (bool, error) {
 	authResultChannel := make(chan authResult, 1)
 
 	go func() {
-		success, err := authenticate(authOpts.message)
+		success, err := authenticate(authOpts.message, authOpts.allowPassword)
 		authResultChannel <- authResult{success, err}
 	}()
 
@@ -51,11 +52,11 @@ func Authenticate(options ...Option) (bool, error) {
 
 }
 
-func authenticate(promptMsg string) (bool, error) {
+func authenticate(promptMsg string, allowPassword bool) (bool, error) {
 	cPrompt := C.CString(promptMsg)
 	defer C.free(unsafe.Pointer(cPrompt))
 
-	result := C.AuthenticateUser(cPrompt)
+	result := C.AuthenticateUser(cPrompt, C.bool(allowPassword))
 
 	switch result {
 	case 1:
