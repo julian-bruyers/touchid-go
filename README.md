@@ -73,7 +73,7 @@ func main() {
 	if touchid.Authenticate() {
 		fmt.println("Authentication successful!")
 	} else {
-		fmt.println("Authenticate failes!")
+		fmt.println("Authentication failed!")
 	}
 }
 ````
