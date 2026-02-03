@@ -20,7 +20,7 @@ A **lightweight**, **zero external dependencies** and **simple to use** Go libra
 ---
 
 ## Overview
-**touchid-go** bridges Go with the native macOS API by using standard CGo calls. This let's you use Touch ID or Face ID directly without any external dependencies or complex CGo calls, just one simple Go function.
+**touchid-go** bridges Go with the native macOS API by using standard CGo calls. This let's you use Touch ID or Face ID directly without any external dependencies or writing complex CGo calls yourself, just one simple Go function.
 
 
 ### Features
