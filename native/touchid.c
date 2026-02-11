@@ -20,7 +20,8 @@ int IsAvailable() {
             return 1;
         }
     }
-    @catch (id exception) { // safety wildcard catch to prevent errors in the main program
+    // safety wildcard catch to prevent errors in the main program
+    @catch (id exception) {
         return 0;
     }
     return 0;
@@ -47,7 +48,7 @@ int AuthenticateUser(char* prompt, bool allowPassword) {
             context.localizedFallbackTitle = nil;
         } else {
             policy = LAPolicyDeviceOwnerAuthenticationWithBiometrics;
-            context.localizedFallbackTitle = @"";   // Remove the "Use password..." button
+            context.localizedFallbackTitle = @"";
         }
 
         dispatch_semaphore_t sema = dispatch_semaphore_create(0);
@@ -81,7 +82,8 @@ int AuthenticateUser(char* prompt, bool allowPassword) {
         return result;
 
     }
-    @catch (id exception) { // safety wildcard catch to prevent errors in the main program
+    // safety wildcard catch to prevent errors in the main program
+    @catch (id exception) {
         return AUTH_ERROR_INTERNAL;
     }
 }
